@@ -41,6 +41,7 @@ export default function Graphs() {
 
   function getElements() {
     const elements = []
+
     data.Review.map((review) => {
       elements.push(getNode(review._id, review._id, '#FF5733'))
       elements.push(
@@ -57,32 +58,75 @@ export default function Graphs() {
   }
   return (
     <div>
-      <CytoscapeComponent
-        elements={getElements()}
-        layout={{ name: 'breadthfirst', padding: 10 }}
-        style={{ width: '1000px', height: '600px' }}
-        stylesheet={[
-          {
-            selector: 'node',
-            style: {
-              height: 80,
-              width: 80,
-              backgroundFit: 'cover',
-              borderColor: 'data(color)',
-              borderWidth: 10,
-              borderOpacity: 0.5,
-              label: 'data(label)',
+      <div>
+        {' '}
+        <h3>
+          {' '}
+          Graph designed using Cytoscape-reactjs. Data being fetched from neo4j
+          database hosted on neo4j sandbox through apolo graphql server{' '}
+        </h3>{' '}
+      </div>
+      <div>
+        <div>
+          <button
+            style={{
+              color: '#FFFFFF',
+              backgroundColor: '#3342FF',
+              padding: '0.2rem',
+              margin: '0.2rem',
+            }}
+          >
+            {' '}
+            USER{' '}
+          </button>
+          <button
+            style={{
+              backgroundColor: '#33FF49',
+              padding: '0.2rem',
+              margin: '0.2rem',
+            }}
+          >
+            {' '}
+            Business{' '}
+          </button>
+          <button
+            style={{
+              backgroundColor: '#FF5733',
+              padding: '0.2rem',
+              margin: '0.2rem',
+            }}
+          >
+            {' '}
+            Review{' '}
+          </button>
+        </div>
+        <CytoscapeComponent
+          elements={getElements()}
+          layout={{ name: 'breadthfirst', padding: 10 }}
+          style={{ width: '1100px', height: '350px' }}
+          stylesheet={[
+            {
+              selector: 'node',
+              style: {
+                height: 80,
+                width: 80,
+                backgroundFit: 'cover',
+                borderColor: 'data(color)',
+                borderWidth: 10,
+                borderOpacity: 0.8,
+                label: 'data(label)',
+              },
             },
-          },
-          {
-            selector: 'edge',
-            style: {
-              width: 4,
+            {
+              selector: 'edge',
+              style: {
+                width: 4,
+              },
             },
-          },
-        ]}
-      />
-      ;
+          ]}
+        />
+        ;
+      </div>
     </div>
   )
 }

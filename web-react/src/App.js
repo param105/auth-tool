@@ -27,7 +27,6 @@ import {
   ChevronLeft as ChevronLeftIcon,
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
-  People as PeopleIcon,
   BarChart,
 } from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
@@ -202,15 +201,6 @@ export default function App() {
                   <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
-              </ListItem>
-            </Link>
-
-            <Link to="/users" className={classes.navLink}>
-              <ListItem button>
-                <ListItemIcon>
-                  <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Users" />
               </ListItem>
             </Link>
 
