@@ -36,7 +36,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <MUILink color="inherit" href="https://grandstack.io/">
+      <MUILink color="inherit" href="https://www.bruviti.com/">
         Bruviti Grandstack tool
       </MUILink>{' '}
       {new Date().getFullYear()}

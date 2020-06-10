@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import CytoscapeComponent from 'react-cytoscapejs'
@@ -26,6 +26,20 @@ const GET_RECENT_REVIEWS_QUERY = gql`
 
 export default function Graphs() {
   const { loading, error, data } = useQuery(GET_RECENT_REVIEWS_QUERY)
+  let cyComp
+  const setNodeClickListener = () => {
+    if (cyComp !== undefined) {
+      cyComp.removeListener('click')
+      cyComp.on('click', 'node', () => {
+        //alert( event.target.id() + ' clicked')
+      })
+    }
+  }
+
+  useEffect(() => {
+    setNodeClickListener()
+  })
+
   if (error) return <p>Error</p>
   if (loading) return <p>Loading</p>
 
@@ -56,6 +70,7 @@ export default function Graphs() {
 
     return elements
   }
+
   return (
     <div>
       <div>
@@ -63,7 +78,7 @@ export default function Graphs() {
         <h3>
           {' '}
           Graph designed using Cytoscape-reactjs. Data being fetched from neo4j
-          database hosted on neo4j sandbox through apolo graphql server{' '}
+          database hosted on neo4j sandbox through apollo graphql server{' '}
         </h3>{' '}
       </div>
       <div>
@@ -101,6 +116,9 @@ export default function Graphs() {
           </button>
         </div>
         <CytoscapeComponent
+          cy={(cy) => {
+            cyComp = cy
+          }}
           elements={getElements()}
           layout={{ name: 'breadthfirst', padding: 10 }}
           style={{ width: '1100px', height: '350px' }}
