@@ -28,15 +28,17 @@ import {
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
   People as PeopleIcon,
+  BarChart,
 } from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
+import Graphs from './components/Graphs'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <MUILink color="inherit" href="https://grandstack.io/">
-        Your GRANDstack App Name Here
+        Bruviti Grandstack tool
       </MUILink>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -176,7 +178,7 @@ export default function App() {
               noWrap
               className={classes.title}
             >
-              Welcome To GRANDstack App
+              Bruviti GRANDstack Tool
             </Typography>
           </Toolbar>
         </AppBar>
@@ -211,6 +213,15 @@ export default function App() {
                 <ListItemText primary="Users" />
               </ListItem>
             </Link>
+
+            <Link to="/graphs" className={classes.navLink}>
+              <ListItem button>
+                <ListItemIcon>
+                  <BarChart />
+                </ListItemIcon>
+                <ListItemText primary="Graphs" />
+              </ListItem>
+            </Link>
           </List>
           <Divider />
         </Drawer>
@@ -221,6 +232,7 @@ export default function App() {
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/businesses" component={UserList} />
               <Route exact path="/users" component={UserList} />
+              <Route exact path="/graphs" component={Graphs} />
             </Switch>
 
             <Box pt={4}>

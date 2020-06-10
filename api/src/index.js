@@ -77,6 +77,9 @@ const server = new ApolloServer({
   schema: schema,
   introspection: true,
   playground: true,
+  engine: {
+    experimental_schemaReporting: true,
+  },
 })
 
 // Specify host, port and path for GraphQL endpoint
