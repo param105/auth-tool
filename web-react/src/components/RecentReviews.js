@@ -10,7 +10,7 @@ import Title from './Title'
 
 const GET_RECENT_REVIEWS_QUERY = gql`
   {
-    Review(first: 50, orderBy: date_desc) {
+    Review(first: 5, orderBy: date_desc) {
       user {
         name
       }

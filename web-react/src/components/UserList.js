@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -18,7 +19,7 @@ import Title from './Title'
 
 const styles = (theme) => ({
   root: {
-    maxWidth: 700,
+    maxWidth: 900,
     marginTop: theme.spacing(3),
     overflowX: 'auto',
     margin: 'auto',
@@ -30,6 +31,13 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     minWidth: 300,
+  },
+  button: {
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    minWidth: 50,
+    maxHeight: 50,
   },
 })
 
@@ -49,6 +57,14 @@ const GET_USER = gql`
   }
 `
 
+const CREATE_USER = gql`
+  mutation createUser($userName: String) {
+    CreateUser(name: $userName) {
+      name
+    }
+  }
+`
+
 function UserList(props) {
   const { classes } = props
   const [order, setOrder] = React.useState('asc')
@@ -56,6 +72,29 @@ function UserList(props) {
   const [page] = React.useState(0)
   const [rowsPerPage] = React.useState(10)
   const [filterState, setFilterState] = React.useState({ usernameFilter: '' })
+  const [addUserState, setAddUserState] = React.useState({ userName: '' })
+  const [saveUser] = useMutation(CREATE_USER, {
+    variables: {
+      userName: addUserState.userName,
+    },
+    refetchQueries: () => [
+      {
+        query: GET_USER,
+        variables: {
+          first: rowsPerPage,
+          offset: rowsPerPage * page,
+          orderBy: orderBy + '_' + order,
+          filter: getFilter(),
+        },
+      },
+    ],
+  })
+
+  function validateAndSaveUser() {
+    if (addUserState.userName != '') {
+      saveUser()
+    }
+  }
 
   const getFilter = () => {
     return filterState.usernameFilter.length > 0
@@ -84,6 +123,14 @@ function UserList(props) {
     setOrderBy(newOrderBy)
   }
 
+  const handleAddUserChange = (userName) => (event) => {
+    const val = event.target.value
+
+    setAddUserState((oldUserName) => ({
+      ...oldUserName,
+      [userName]: val,
+    }))
+  }
   const handleFilterChange = (filterName) => (event) => {
     const val = event.target.value
 
@@ -95,20 +142,50 @@ function UserList(props) {
 
   return (
     <Paper className={classes.root}>
-      <Title>User List</Title>
-      <TextField
-        id="search"
-        label="User Name Contains"
-        className={classes.textField}
-        value={filterState.usernameFilter}
-        onChange={handleFilterChange('usernameFilter')}
-        margin="normal"
-        variant="outlined"
-        type="text"
-        InputProps={{
-          className: classes.input,
-        }}
-      />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <Title>User List</Title>
+          <TextField
+            id="search"
+            label="Search user"
+            className={classes.textField}
+            value={filterState.usernameFilter}
+            onChange={handleFilterChange('usernameFilter')}
+            margin="normal"
+            variant="outlined"
+            type="text"
+            InputProps={{
+              className: classes.input,
+            }}
+          />
+        </div>
+        <div>
+          <Title>Add User</Title>
+          <div style={{ display: 'flex' }}>
+            <TextField
+              id="addUser"
+              label="Just user name"
+              className={classes.textField}
+              value={addUserState.usernameAdd}
+              onChange={handleAddUserChange('userName')}
+              margin="normal"
+              variant="outlined"
+              type="text"
+              InputProps={{
+                className: classes.input,
+              }}
+            />
+            <button
+              onClick={() => {
+                validateAndSaveUser()
+              }}
+              className={classes.button}
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
       {loading && !error && <p>Loading...</p>}
       {error && !loading && <p>Error</p>}
       {data && !loading && !error && (
