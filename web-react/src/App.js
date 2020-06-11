@@ -28,6 +28,7 @@ import {
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
   BarChart,
+  Person,
 } from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
 import Graphs from './components/Graphs'
@@ -201,6 +202,14 @@ export default function App() {
                   <DashboardIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
+              </ListItem>
+            </Link>
+            <Link to="/users" className={classes.navLink}>
+              <ListItem button>
+                <ListItemIcon>
+                  <Person />
+                </ListItemIcon>
+                <ListItemText primary="users" />
               </ListItem>
             </Link>
 
