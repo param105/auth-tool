@@ -15,6 +15,8 @@ import {
   TextField,
 } from '@material-ui/core'
 
+import { DeleteForever } from '@material-ui/icons'
+
 import Title from './Title'
 
 const styles = (theme) => ({
@@ -64,6 +66,13 @@ const CREATE_USER = gql`
     }
   }
 `
+const DELETE_USER = gql`
+  mutation deleteUser($userId: ID!) {
+    DeleteUser(userId: $userId) {
+      name
+    }
+  }
+`
 
 function UserList(props) {
   const { classes } = props
@@ -77,6 +86,20 @@ function UserList(props) {
     variables: {
       userName: addUserState.userName,
     },
+    refetchQueries: () => [
+      {
+        query: GET_USER,
+        variables: {
+          first: rowsPerPage,
+          offset: rowsPerPage * page,
+          orderBy: orderBy + '_' + order,
+          filter: getFilter(),
+        },
+      },
+    ],
+  })
+
+  const [deleteUser] = useMutation(DELETE_USER, {
     refetchQueries: () => [
       {
         query: GET_USER,
@@ -178,6 +201,7 @@ function UserList(props) {
             <button
               onClick={() => {
                 validateAndSaveUser()
+                addUserState.usernameAdd = ''
               }}
               className={classes.button}
             >
@@ -234,6 +258,15 @@ function UserList(props) {
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
+              <TableCell key="actions">
+                <Tooltip
+                  title="Actions"
+                  placement="bottom-start"
+                  enterDelay={300}
+                >
+                  <TableSortLabel>Actions</TableSortLabel>
+                </Tooltip>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -247,6 +280,15 @@ function UserList(props) {
                     {n.avgStars ? n.avgStars.toFixed(2) : '-'}
                   </TableCell>
                   <TableCell>{n.numReviews}</TableCell>
+                  <TableCell>
+                    {n.numReviews == 0 && (
+                      <DeleteForever
+                        onClick={() =>
+                          deleteUser({ variables: { userId: n.id } })
+                        }
+                      />
+                    )}
+                  </TableCell>
                 </TableRow>
               )
             })}
