@@ -15,6 +15,8 @@ import {
   TextField,
 } from '@material-ui/core'
 
+import { DeleteForever } from '@material-ui/icons'
+
 import Title from './Title'
 
 const styles = (theme) => ({
@@ -64,19 +66,40 @@ const CREATE_USER = gql`
     }
   }
 `
+const DELETE_USER = gql`
+  mutation deleteUser($userId: ID!) {
+    DeleteUser(userId: $userId) {
+      name
+    }
+  }
+`
 
 function UserList(props) {
   const { classes } = props
   const [order, setOrder] = React.useState('asc')
   const [orderBy, setOrderBy] = React.useState('name')
   const [page] = React.useState(0)
-  const [rowsPerPage] = React.useState(10)
+  const [rowsPerPage] = React.useState(20)
   const [filterState, setFilterState] = React.useState({ usernameFilter: '' })
   const [addUserState, setAddUserState] = React.useState({ userName: '' })
   const [saveUser] = useMutation(CREATE_USER, {
     variables: {
       userName: addUserState.userName,
     },
+    refetchQueries: () => [
+      {
+        query: GET_USER,
+        variables: {
+          first: rowsPerPage,
+          offset: rowsPerPage * page,
+          orderBy: orderBy + '_' + order,
+          filter: getFilter(),
+        },
+      },
+    ],
+  })
+
+  const [deleteUser] = useMutation(DELETE_USER, {
     refetchQueries: () => [
       {
         query: GET_USER,
@@ -166,7 +189,7 @@ function UserList(props) {
               id="addUser"
               label="Just user name"
               className={classes.textField}
-              value={addUserState.usernameAdd}
+              value={addUserState.userName}
               onChange={handleAddUserChange('userName')}
               margin="normal"
               variant="outlined"
@@ -178,6 +201,7 @@ function UserList(props) {
             <button
               onClick={() => {
                 validateAndSaveUser()
+                setAddUserState({ userName: '' })
               }}
               className={classes.button}
             >
@@ -234,6 +258,15 @@ function UserList(props) {
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
+              <TableCell key="actions">
+                <Tooltip
+                  title="Actions"
+                  placement="bottom-start"
+                  enterDelay={300}
+                >
+                  <TableSortLabel>Actions</TableSortLabel>
+                </Tooltip>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -247,6 +280,15 @@ function UserList(props) {
                     {n.avgStars ? n.avgStars.toFixed(2) : '-'}
                   </TableCell>
                   <TableCell>{n.numReviews}</TableCell>
+                  <TableCell>
+                    {n.numReviews == 0 && (
+                      <DeleteForever
+                        onClick={() =>
+                          deleteUser({ variables: { userId: n.id } })
+                        }
+                      />
+                    )}
+                  </TableCell>
                 </TableRow>
               )
             })}
