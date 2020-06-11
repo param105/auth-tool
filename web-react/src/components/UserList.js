@@ -79,7 +79,7 @@ function UserList(props) {
   const [order, setOrder] = React.useState('asc')
   const [orderBy, setOrderBy] = React.useState('name')
   const [page] = React.useState(0)
-  const [rowsPerPage] = React.useState(10)
+  const [rowsPerPage] = React.useState(20)
   const [filterState, setFilterState] = React.useState({ usernameFilter: '' })
   const [addUserState, setAddUserState] = React.useState({ userName: '' })
   const [saveUser] = useMutation(CREATE_USER, {
@@ -189,7 +189,7 @@ function UserList(props) {
               id="addUser"
               label="Just user name"
               className={classes.textField}
-              value={addUserState.usernameAdd}
+              value={addUserState.userName}
               onChange={handleAddUserChange('userName')}
               margin="normal"
               variant="outlined"
@@ -201,7 +201,7 @@ function UserList(props) {
             <button
               onClick={() => {
                 validateAndSaveUser()
-                addUserState.usernameAdd = ''
+                setAddUserState({ userName: '' })
               }}
               className={classes.button}
             >
