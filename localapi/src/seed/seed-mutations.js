@@ -1,12 +1,16 @@
-const fetch = require('node-fetch')
+// const fetch = require('node-fetch')
 const parse = require('csv-parse/lib/sync')
 const gql = require('graphql-tag')
+import fs from 'fs'
+import path from 'path'
 
 export const getSeedMutations = async () => {
-  const res = await fetch(
-    'https://cdn.neo4jlabs.com/data/grandstack_businesses.csv'
-  )
-  const body = await res.text()
+  // 'https://cdn.neo4jlabs.com/data/grandstack_businesses.csv'
+  //const res = await fetch(
+  // 'https://localhost:3000/localapi/src/seed/grandstack_data.csv'
+  //)
+  const res = fs.readFileSync(path.join(__dirname, 'grandstack_data.csv'))
+  const body = res
   const records = parse(body, { columns: true })
   const mutations = generateMutations(records)
 
@@ -15,81 +19,50 @@ export const getSeedMutations = async () => {
 
 const generateMutations = (records) => {
   return records.map((rec) => {
-    Object.keys(rec).map((k) => {
-      if (k === 'latitude' || k === 'longitude' || k === 'reviewStars') {
-        rec[k] = parseFloat(rec[k])
-      } else if (k === 'reviewDate') {
-        const dateParts = rec[k].split('-')
-        rec['year'] = parseInt(dateParts[0])
-        rec['month'] = parseInt(dateParts[1])
-        rec['day'] = parseInt(dateParts[2])
-      } else if (k === 'categories') {
-        rec[k] = rec[k].split(',')
-      }
-    })
-
     return {
       mutation: gql`
-        mutation mergeReviews(
-          $userId: ID!
-          $userName: String
-          $businessId: ID!
-          $businessName: String
-          $businessCity: String
-          $businessState: String
-          $businessAddress: String
-          $latitude: Float
-          $longitude: Float
-          $reviewId: ID!
-          $reviewText: String
-          $year: Int
-          $month: Int
-          $day: Int
-          $reviewStars: Float
-          $categories: [String!]!
+        mutation mergeAll(
+          $domainId: ID!
+          $domainName: String
+          $frameworkId: ID!
+          $frameworkName: String
+          $languageId: ID!
+          $languageName: String
         ) {
-          user: MergeUser(userId: $userId, name: $userName) {
-            userId
+          domain: MergeDomain(domainId: $domainId, name: $domainName) {
+            domainId
           }
-          business: MergeBusiness(
-            businessId: $businessId
-            name: $businessName
-            address: $businessAddress
-            city: $businessCity
-            state: $businessState
-            location: { latitude: $latitude, longitude: $longitude }
+
+          framework: MergeFramework(
+            frameworkId: $frameworkId
+            name: $frameworkName
           ) {
-            businessId
+            frameworkId
           }
-          review: MergeReview(
-            reviewId: $reviewId
-            text: $reviewText
-            date: { year: $year, month: $month, day: $day }
-            stars: $reviewStars
+
+          language: MergeLanguage(
+            languageId: $languageId
+            name: $languageName
           ) {
-            reviewId
+            languageId
           }
-          reviewUser: MergeReviewUser(
-            from: { userId: $userId }
-            to: { reviewId: $reviewId }
+
+          domainFramework: MergeDomainFrameworks(
+            from: { frameworkId: $frameworkId }
+            to: { domainId: $domainId }
           ) {
             from {
-              userId
+              frameworkId
             }
           }
-          reviewBusiness: MergeReviewBusiness(
-            from: { reviewId: $reviewId }
-            to: { businessId: $businessId }
+
+          frameworkLanguage: MergeFrameworkLanguages(
+            from: { languageId: $languageId }
+            to: { frameworkId: $frameworkId }
           ) {
             from {
-              reviewId
+              languageId
             }
-          }
-          businessCategories: mergeBusinessCategory(
-            categories: $categories
-            businessId: $businessId
-          ) {
-            businessId
           }
         }
       `,

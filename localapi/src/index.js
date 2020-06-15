@@ -10,7 +10,6 @@ import { initializeDatabase } from './initialize'
 dotenv.config()
 
 const app = express()
-//app.use(cors)
 
 /*
  * Create an executable GraphQL schema object from GraphQL type definitions

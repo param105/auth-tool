@@ -1,0 +1,20 @@
+
+type Domain{
+  domainId: ID!
+  name: String
+  frameworks: [FrameWork] @relation(name:"INCLUDES", direction: "IN")
+}
+
+type FrameWork{
+  frameworkId: ID!
+  name: String
+  languages: [Language] @relation(name:"USED_IN", direction: "IN")
+}
+
+type Language{
+  languageId: ID!
+   name: String
+}
+
+
+
