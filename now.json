@@ -1,7 +1,7 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/src/index.js", "use": "@now/node" },
+    { "src": "localapi/src/index.js", "use": "@now/node" },
     {
       "src": "web-react/package.json",
       "use": "@now/static-build",
@@ -9,7 +9,7 @@
     }
   ],
   "routes": [
-    { "src": "/graphql(.*)", "dest": "api/src/index.js" },
+    { "src": "/graphql(.*)", "dest": "localapi/src/index.js" },
     {
       "src": "/static/(.*)",
       "headers": { "cache-control": "s-maxage=31536000,immutable" },

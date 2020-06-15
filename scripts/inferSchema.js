@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './api/.env' })
+require('dotenv').config({ path: './localapi/.env' })
 const execa = require('execa')
 const path = require('path')
 
@@ -17,5 +17,5 @@ execa.sync(grandstackCmd, [
   `--neo4j-password`,
   `${process.env.NEO4J_PASSWORD}`,
   `--schema-file`,
-  `./api/src/schema.graphql`,
+  `./localapi/src/schema.graphql`,
 ])

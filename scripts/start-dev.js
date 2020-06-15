@@ -2,7 +2,7 @@ const path = require('path')
 const concurrently = require('concurrently')
 const execa = require('execa')
 
-const API_DIR = path.join(__dirname, '../api')
+const API_DIR = path.join(__dirname, '../localapi')
 const WEB_DIR = path.join(__dirname, '../web-react')
 
 const shouldUseYarn = () => {
@@ -18,7 +18,7 @@ const runner = shouldUseYarn() ? 'yarn' : 'npm'
 
 const jobs = [
   {
-    name: 'api',
+    name: 'localapi',
     command: `cd ${API_DIR} && ${runner} run start:dev`,
     prefixColor: 'green',
   },
