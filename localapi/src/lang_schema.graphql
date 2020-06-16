@@ -1,20 +1,17 @@
-
-type Domain{
+type Domain {
   domainId: ID!
   name: String
-  frameworks: [FrameWork] @relation(name:"INCLUDES", direction: "IN")
+  frameworks: [Framework] @relation(name: "INCLUDES", direction: "IN")
 }
 
-type FrameWork{
+type Framework {
   frameworkId: ID!
   name: String
-  languages: [Language] @relation(name:"USED_IN", direction: "IN")
+  languages: [Language] @relation(name: "USED_IN", direction: "IN")
 }
 
-type Language{
+type Language {
   languageId: ID!
-   name: String
+  name: String
+  frameworks: [Framework] @relation(name: "USED_IN", direction: "OUT")
 }
-
-
-

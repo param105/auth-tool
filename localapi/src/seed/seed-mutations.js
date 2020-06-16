@@ -64,6 +64,15 @@ const generateMutations = (records) => {
               languageId
             }
           }
+
+          languageFramework: MergeLanguageFrameworks(
+            from: { languageId: $languageId }
+            to: { frameworkId: $frameworkId }
+          ) {
+            from {
+              languageId
+            }
+          }
         }
       `,
       variables: rec,

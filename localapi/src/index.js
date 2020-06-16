@@ -73,6 +73,10 @@ init(driver)
  * generated resolvers to connect to the database.
  */
 const server = new ApolloServer({
+  cors: {
+    origin: '*', // <- allow request from all domains
+    credentials: true,
+  },
   context: { driver, neo4jDatabase: process.env.NEO4J_DATABASE },
   schema: schema,
   introspection: true,
