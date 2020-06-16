@@ -31,7 +31,7 @@ import {
   Person,
 } from '@material-ui/icons'
 import Dashboard from './components/Dashboard'
-import Graphs from './components/Graphs'
+import LangGraph from './components/LangGraph'
 
 function Copyright() {
   return (
@@ -231,7 +231,7 @@ export default function App() {
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/businesses" component={UserList} />
               <Route exact path="/users" component={UserList} />
-              <Route exact path="/graphs" component={Graphs} />
+              <Route exact path="/graphs" component={LangGraph} />
             </Switch>
 
             <Box pt={4}>
