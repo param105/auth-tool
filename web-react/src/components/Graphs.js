@@ -121,7 +121,7 @@ export default function Graphs() {
           }}
           elements={getElements()}
           layout={{ name: 'breadthfirst', padding: 10 }}
-          style={{ width: '1100px', height: '350px' }}
+          style={{ width: '1200px', height: '450px' }}
           stylesheet={[
             {
               selector: 'node',

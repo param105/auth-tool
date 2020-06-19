@@ -1,0 +1,13 @@
+userId,userName,businessId,businessName,businessCity,businessState,businessAddress,latitude,longitude,reviewId,reviewText,reviewDate,reviewStars,categories
+u1,Will,b5,Missoula Public Library,Missoula,MT,301 E Main St,46.870035,-113.990976,r7,"Not a great selection of books, but fortunately the inter-library loan system is good. Wifi is quite slow. Not many comfortable places to site and read. Looking forward to the new building across the street in 2020!",2015-08-29,3.0,Library
+u1,Will,b3,Ninja Mike's,Missoula,MT,200 W Pine St,46.874029,-113.995057,r5,Best breakfast sandwich at the Farmer's Market. Always get the works.,2018-01-03,4.0,"Breakfast,Restaurant"
+u1,Will,b1,KettleHouse Brewing Co.,Missoula,MT,313 N 1st St W,46.877981," -113.995297",r1,Great IPA selection!,2016-01-03,4.0,"Brewery,Beer"
+u2,Bob,b2,Imagine Nation Brewing,Missoula,MT,1151 W Broadway St,46.876672,-114.009628,r10,,2015-12-15,4.0,"Brewery,Beer"
+u2,Bob,b4,Market on Front,Missoula,MT,201 E Front St,46.869824,-113.993633,r6,,2018-03-24,4.0,"Breakfast,Deli,Cafe,Restaurant,Coffee"
+u3,Jenny,b7,Hanabi,Burlingame,CA,723 California Dr,37.582598,-122.351519,r9,,2016-11-21,5.0,"Ramen,Restaurant"
+u3,Jenny,b3,Ninja Mike's,Missoula,MT,200 W Pine St,46.874029,-113.995057,r4,,2017-11-13,5.0,"Breakfast,Restaurant"
+u3,Jenny,b1,KettleHouse Brewing Co.,Missoula,MT,313 N 1st St W,46.877981," -113.995297",r2,,2016-07-14,5.0,"Brewery,Beer"
+u4,Angie,b6,Zootown Brew,Missoula,MT,121 W Broadway St,46.873985,-113.995018,r8,,2018-08-11,5.0,Coffee
+u4,Angie,b2,Imagine Nation Brewing,Missoula,MT,1151 W Broadway St,46.876672,-114.009628,r3,,2018-09-10,3.0,"Brewery,Beer"
+u1,Will,b8,Ducky's Car Wash,San Mateo,CA,716 N San Mateo Dr,37.575968,-122.336041,r11,Awesome full-service car wash. Love Ducky's!,2016-03-04,5.0,Car Wash
+u1,Will,b9,Neo4j,San Mateo,CA,111 E 5th Ave,37.563534,-122.322269,r12,The world's leading graph database HQ!,2015-09-01,5.0,Graph Database
