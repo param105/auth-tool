@@ -1,13 +1,17 @@
 type Domain {
   domainId: ID!
   name: String
-  frameworks: [Framework] @relation(name: "INCLUDES", direction: "IN")
+  frameworks: [Framework] @relation(name: "HELPS_TO_DEVELOP", direction: "IN")
 }
 
 type Framework {
   frameworkId: ID!
   name: String
   languages: [Language] @relation(name: "USED_IN", direction: "IN")
+  similar(first: Int = 5): [Framework]
+    @cypher(
+      statement: "MATCH (this)-[:HELPS_TO_DEVELOP]->(:Domain)<-[:HELPS_TO_DEVELOP]-(f:Framework)  RETURN f"
+    )
 }
 
 type Language {
@@ -15,3 +19,15 @@ type Language {
   name: String
   frameworks: [Framework] @relation(name: "USED_IN", direction: "OUT")
 }
+
+type Query
+{
+   greeting: String
+   sayHello(name:String!):String
+}
+
+type Mutation {
+    createNode(label:String,key:String,value:String) : String
+      @cypher(statement:"CREATE (:label { key}:value })")                        
+}
+

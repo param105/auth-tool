@@ -4,24 +4,15 @@ D1,Web-Frontend,f2,React,L1,Typescript
 D1,Web-Frontend,f3,Vue,L1,Typescript
 D1,Web-Frontend,f4,Ember,L1,Typescript
 D1,Web-Frontend,f5,Backbone,L1,Typescript
-D1,Web-Frontend,f6,Django,L1,Typescript
-D1,Web-Frontend,f7,Ruby on Rails,L1,Typescript
-D1,Web-Frontend,f8,Spring,L1,Typescript
 D1,Web-Frontend,f2,React,L2,Javascript
 D1,Web-Frontend,f3,Vue,L2,Javascript
 D1,Web-Frontend,f4,Ember,L2,Javascript
 D1,Web-Frontend,f5,Backbone,L2,Javascript
-D1,Web-Frontend,f6,Django,L2,Javascript
-D1,Web-Frontend,f7,Ruby on Rails,L2,Javascript
-D1,Web-Frontend,f8,Spring,L2,Javascript
 D1,Web-Frontend,f1,Angular,L3,HTML
 D1,Web-Frontend,f2,React,L3,HTML
 D1,Web-Frontend,f3,Vue,L3,HTML
 D1,Web-Frontend,f4,Ember,L3,HTML
 D1,Web-Frontend,f5,Backbone,L3,HTML
-D1,Web-Frontend,f6,Django,L3,HTML
-D1,Web-Frontend,f7,Ruby on Rails,L3,HTML
-D1,Web-Frontend,f8,Spring,L4,Java
 D2,Web-Backend,f6,Django,L5,Python
 D2,Web-Backend,f7,Ruby on Rails,L6,Ruby
 D2,Web-Backend,f8,Spring,L7,Scala

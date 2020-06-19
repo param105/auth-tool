@@ -1,0 +1,9 @@
+{
+  "dbAddress": "bolt://localhost:7687",
+  "username": "neo4j",
+  "password": "bruviti",
+  "clearChannelOnSave": true,
+  "writeOutputToJSON": true,
+  "JSONOutputRelativePath": "./",
+  "outputFilename": "output.json"
+}
